@@ -2,12 +2,20 @@ var Product = React.createClass({
     
       displayName: 'Product',
     
-      render: function(){
+      propTypes: {
+        productsArr:React.PropTypes.arrayOf(
+          React.PropTypes.shape({
+            name: React.PropTypes.string.isRequired,
+            price: React.PropTypes.number.isRequired,
+            url: React.PropTypes.string.isRequired,
+            in_stock: React.PropTypes.number.isRequired,
+          })
+        )
+      },
     
-        return React.DOM.div( {className:'ProductsWrapper'}, 
-            React.DOM.h1( null, "Shop" ),
-            React.DOM.div( {className:'ProductItem'}, "Test" ),
-        );
+      render: function() {
+    
+        
       },
     
     });
