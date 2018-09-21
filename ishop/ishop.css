@@ -1,0 +1,54 @@
+body {
+    font-family: "Arial";
+}
+
+.PageTitle {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.ProductsWrap {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ProductWrapper {
+    border: 1px solid #8F8F8F;
+    padding: 10px;
+    margin: 5px;
+    flex: 1 1 auto;
+    position: relative;
+}
+
+.ProductImage {
+    height: 300px;
+    padding-top: 20px;
+}
+
+.ProductImage img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.ProductName {
+    font-weight: bold;
+}
+
+.InStock {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: #FF778A;
+    color: #fff;
+    padding: 2px 5px;
+    font-size: 10px;
+}
+
+@media screen and (max-width: 760px) {
+    .ProductsWrap {
+        flex-wrap: wrap;
+    }
+}
