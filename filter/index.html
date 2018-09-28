@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8" />
+  <title>filter</title>
+</head> 
+<body> 
+  <div id="root"></div> 
+      
+  <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script> 
+      
+  <script src="filter.js"></script>
+
+  <script>
+
+    var dataArr = ['индульгенция', 'линяние', 'составляемые', 'существительные', 'количество', 'слово', 'полюс', 'парогенератор'];
+      
+    ReactDOM.render(
+      React.createElement(Filter, {dataArr}), 
+      document.getElementById('root') 
+    );
+
+  </script>
+
+</body> 
+</html>
