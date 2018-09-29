@@ -4,24 +4,26 @@ var Filter = React.createClass({
 
       getInitialState: function() {
         return { 
-          isFilterActive: false
+          isFilterActive: false,
+          renderedWords: this.props.dataArr
         };
       },
 
       initialFilter: function(ev) {
         ev.target.checked 
           ? this.setState( {isFilterActive:true} )
-          : console.log('off')
+          : this.setState({renderedWords:this.props.dataArr})
       },
 
       changeFilter: function(ev) {
         if (this.state.isFilterActive) {
-          console.log(ev.target.value);
+          var newArr = this.state.renderedWords.filter(word => word.includes(ev.target.value));
+          this.setState({renderedWords:newArr.sort()});
         }
       },
     
       render: function() {
-        var wordsBlock=this.props.dataArr.map( word =>
+        var wordsBlock=this.state.renderedWords.map( word =>
           React.DOM.p({key: Math.random()}, word)
         );
 
