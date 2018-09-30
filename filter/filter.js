@@ -2,6 +2,12 @@ var Filter = React.createClass({
     
       displayName: 'Filter',
 
+      propTypes: {
+        dataArr:React.PropTypes.arrayOf(
+          React.PropTypes.string
+        )
+      },
+
       getInitialState: function() {
         return { 
           isSortActive: false,
@@ -10,25 +16,24 @@ var Filter = React.createClass({
         };
       },
 
-      sortInit: function(ev) {
-        this.setState({ isSortActive: !this.state.isSortActive });
-        this.handleList()
+      sortInit: function() {
+        this.setState({ isSortActive: !this.state.isSortActive }, () => { this.handleList()});
       },
 
       filterInit: function(ev) {
-        this.setState({filterStr:ev.target.value});
-        this.handleList()
+        this.setState({filterStr: ev.target.value}, () => { this.handleList()});
       },
 
-      handleList: function(ev) {
-        var wordsList = this.state.renderedWords.slice();
+      handleList: function() {
+        var wordsList = this.props.dataArr.slice();
         if (this.state.isSortActive) {
           this.setState({renderedWords:wordsList.sort()});
-          console.log("sortOn")
         }
         if (this.state.filterStr) {
           this.setState({renderedWords:wordsList.filter(word => word.indexOf(this.state.filterStr)!=-1)});
-          console.log("filterOn")
+        }
+        if (!this.state.isSortActive && !this.state.filterStr) {
+          this.setState({renderedWords:this.props.dataArr});
         }
       },
     
