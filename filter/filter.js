@@ -4,21 +4,31 @@ var Filter = React.createClass({
 
       getInitialState: function() {
         return { 
-          isFilterActive: false,
-          renderedWords: this.props.dataArr
+          isSortActive: false,
+          renderedWords: this.props.dataArr,
+          filterStr: ''
         };
       },
 
-      initialFilter: function(ev) {
-        ev.target.checked 
-          ? this.setState( {isFilterActive:true} )
-          : this.setState( {isFilterActive:false} )
+      sortInit: function(ev) {
+        this.setState({ isSortActive: !this.state.isSortActive });
+        this.handleList()
       },
 
-      changeFilter: function(ev) {
-        if (this.state.isFilterActive) {
-          var newArr = this.state.renderedWords.filter(word => word.includes(ev.target.value));
-          this.setState({renderedWords:newArr.sort()});
+      filterInit: function(ev) {
+        this.setState({filterStr:ev.target.value});
+        this.handleList()
+      },
+
+      handleList: function(ev) {
+        var wordsList = this.state.renderedWords.slice();
+        if (this.state.isSortActive) {
+          this.setState({renderedWords:wordsList.sort()});
+          console.log("sortOn")
+        }
+        if (this.state.filterStr) {
+          this.setState({renderedWords:wordsList.filter(word => word.indexOf(this.state.filterStr)!=-1)});
+          console.log("filterOn")
         }
       },
     
@@ -28,8 +38,8 @@ var Filter = React.createClass({
         );
 
         return React.DOM.div(null,
-          React.DOM.input({type:'checkbox',name:'switchFilter',onChange:this.initialFilter}),
-          React.DOM.input({type:'text',name:'filterInput',onChange:this.changeFilter}),
+          React.DOM.input({type:'checkbox',defaultChecked:false,name:'switchFilter',onChange:this.sortInit}),
+          React.DOM.input({type:'text',name:'filterInput',onChange:this.filterInit}),
           React.DOM.div({className:"wordsWrap"}, wordsBlock),
         );
         
