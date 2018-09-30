@@ -1,0 +1,33 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <meta charset="utf-8" />
+  <title>iShop</title>
+</head> 
+<body> 
+  <div id="root"></div> 
+      
+  <script src="https://unpkg.com/react@15/dist/react.js"></script> 
+  <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script> 
+      
+  <script src="iShop.js"></script>
+  <link rel="stylesheet" type="text/css" href="iShop.css" />
+  <script src="Product.js"></script>
+
+  <script>
+      var productsList = [
+          {name: 'Алиса в Стране чудес', price: 14, url: 'img/book1.jpg', quantity: 12, id: '1'},
+          {name: '1984. Скотный Двор', price: 12, url: 'img/book2.jpg', quantity: 1, id: '2'},
+          {name: 'Три товарища', price: 10, url: 'img/book3.jpg', quantity: 14, id: '3'},
+          {name: 'Фауст', price: 8, url: 'img/book4.jpg', quantity: 11, id: '4'},
+      ];
+
+    ReactDOM.render(
+      React.createElement(iShop, {products:productsList}), 
+      document.getElementById('root') 
+    );
+
+  </script>
+
+</body> 
+</html>
