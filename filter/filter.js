@@ -12,7 +12,7 @@ var Filter = React.createClass({
       initialFilter: function(ev) {
         ev.target.checked 
           ? this.setState( {isFilterActive:true} )
-          : this.setState({renderedWords:this.props.dataArr})
+          : this.setState( {isFilterActive:false} )
       },
 
       changeFilter: function(ev) {
