@@ -17,24 +17,22 @@ var Filter = React.createClass({
       },
 
       sortInit: function() {
-        this.setState({ isSortActive: !this.state.isSortActive }, () => { this.handleList()});
+        this.setState({ isSortActive: !this.state.isSortActive }, this.handleList );
       },
 
       filterInit: function(ev) {
-        this.setState({filterStr: ev.target.value}, () => { this.handleList()});
+        this.setState({ filterStr: ev.target.value}, this.handleList );
       },
 
       handleList: function() {
         var wordsList = this.props.dataArr.slice();
         if (this.state.isSortActive) {
-          this.setState({renderedWords:wordsList.sort()});
+          wordsList = wordsList.sort();
         }
         if (this.state.filterStr) {
-          this.setState({renderedWords:wordsList.filter(word => word.indexOf(this.state.filterStr)!=-1)});
+          wordsList = wordsList.filter(word => word.indexOf(this.state.filterStr)!=-1);
         }
-        if (!this.state.isSortActive && !this.state.filterStr) {
-          this.setState({renderedWords:this.props.dataArr});
-        }
+        this.setState({renderedWords:wordsList});
       },
     
       render: function() {
