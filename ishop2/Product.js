@@ -17,12 +17,6 @@ var Product = React.createClass({
     )
   },
 
-  getInitialState: function() {
-    return { 
-      selected: false,
-    };
-  },
-
   productClicked: function() {
       this.props.cbSelected(this.props.code);   
   },
@@ -33,14 +27,24 @@ var Product = React.createClass({
 
   render: function() {
     
-    return React.DOM.tr({onClick:this.productClicked},
+    return  this.props.slectedProductId != this.props.code
+    ? React.DOM.tr({onClick:this.productClicked},
             React.DOM.td(null, this.props.name),
             React.DOM.td(null, this.props.price),
             React.DOM.td(null, this.props.url),
             React.DOM.td(null, this.props.quantity),
             React.DOM.td(null, 
-              React.DOM.button({className:'Control', onClick:this.deleteClecked},'Delete')
+              React.DOM.button({className:'Control', onClick:this.deleteClicked},'Delete')
             )
-          )
+          )    
+    : React.DOM.tr({onClick:this.productClicked, className:"selected"},
+            React.DOM.td(null, this.props.name),
+            React.DOM.td(null, this.props.price),
+            React.DOM.td(null, this.props.url),
+            React.DOM.td(null, this.props.quantity),
+            React.DOM.td(null, 
+              React.DOM.button({className:'Control', onClick:this.deleteClicked},'Delete')
+            )
+          )    
   }
 });

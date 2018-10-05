@@ -1,4 +1,8 @@
-td {
+td, th {
     border: 1px solid #000;
     padding: 3px 6px;
+}
+
+.selected {
+    background-color: coral;
 }

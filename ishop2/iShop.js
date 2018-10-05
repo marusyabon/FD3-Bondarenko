@@ -6,25 +6,25 @@ var iShop = React.createClass({
   getInitialState: function() {
     return { 
       slectedProductId: null,
-      productSList: this.props.products
+      productsList: this.props.products
     };
   },
 
   productSelected: function(code) {
-    console.log(code);
+    console.log(this.state.slectedProductId + " " + code);
     this.setState({slectedProductId:code})
   },
 
   deleteProduct: function(code) {
-    var productsFiltered = this.state.productsArr.filter( p => {
+    var productsFiltered = this.state.productsList.filter( p => {
       return p.code != code;
     });
-    this.setState({productSList: [...productsFiltered]})
+    this.setState({productsList: [...productsFiltered]})
   },
   
   render: function() {
 
-    var productsCode = this.state.productSList.map( item => 
+    var productsCode = this.state.productsList.map( item => 
       React.createElement(Product, {key:item.code,
         code:item.code,
         name:item.name, 
@@ -33,7 +33,7 @@ var iShop = React.createClass({
         quantity:item.quantity, 
         cbSelected:this.productSelected,
         cbDeleted:this.deleteProduct,
-        productSelected:this.slectedProductId
+        slectedProductId:this.state.slectedProductId
       })
     );
 
