@@ -1,0 +1,6 @@
+ [
+    {"name": "Book1", "price": 14, "url": "img/book1.jpg", "quantity": 12, "code": 1},
+    {"name": "Book2", "price": 12, "url": "img/book2.jpg", "quantity": 18, "code": 2},
+    {"name": "Book3", "price": 10, "url": "img/book3.jpg", "quantity": 14, "code": 3},
+    {"name": "Book4", "price": 18, "url": "img/book4.jpg", "quantity": 11, "code": 4}
+]
