@@ -27,8 +27,7 @@ var Product = React.createClass({
 
   render: function() {
     
-    return  this.props.slectedProductId != this.props.code
-    ? React.DOM.tr({onClick:this.productClicked},
+    return React.DOM.tr({onClick:this.productClicked,className: (this.props.slectedProductId == this.props.code ? "selected" : "")},
             React.DOM.td(null, this.props.name),
             React.DOM.td(null, this.props.price),
             React.DOM.td(null, this.props.url),
@@ -37,14 +36,6 @@ var Product = React.createClass({
               React.DOM.button({className:'Control', onClick:this.deleteClicked},'Delete')
             )
           )    
-    : React.DOM.tr({onClick:this.productClicked, className:"selected"},
-            React.DOM.td(null, this.props.name),
-            React.DOM.td(null, this.props.price),
-            React.DOM.td(null, this.props.url),
-            React.DOM.td(null, this.props.quantity),
-            React.DOM.td(null, 
-              React.DOM.button({className:'Control', onClick:this.deleteClicked},'Delete')
-            )
-          )    
+   
   }
 });
