@@ -1,41 +1,46 @@
-var Product = React.createClass({
-  
-  displayName: 'Product',
+import React from 'react';
+import PropTypes from 'prop-types';
 
-  propTypes: {
-    productsArr:React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        code:React.PropTypes.number.isRequired,
-        name: React.PropTypes.string.isRequired,
-        price: React.PropTypes.number.isRequired,
-        url: React.PropTypes.string.isRequired,
-        quantity: React.PropTypes.number.isRequired,
-        cbSelected: React.PropTypes.func.isRequired,
-        cbDeleted: React.PropTypes.func.isRequired,
-        productSelected: React.PropTypes.number.isRequired
-      })
-    )
-  },
+import './Product.css';
 
-  productClicked: function() {
-      this.props.cbSelected(this.props.code);   
-  },
+class Product extends React.Component {
 
-  deleteClicked: function() {
-      this.props.cbDeleted(this.props.code);   
-  },
-
-  render: function() {
-    
-    return React.DOM.tr({onClick:this.productClicked,className: (this.props.slectedProductId == this.props.code ? "selected" : "")},
-            React.DOM.td(null, this.props.name),
-            React.DOM.td(null, this.props.price),
-            React.DOM.td(null, this.props.url),
-            React.DOM.td(null, this.props.quantity),
-            React.DOM.td(null, 
-              React.DOM.button({className:'Control', onClick:this.deleteClicked},'Delete')
-            )
-          )    
+  static propTypes = {
+      code:React.PropTypes.number.isRequired,
+      name: React.PropTypes.string.isRequired,
+      price: React.PropTypes.number.isRequired,
+      url: React.PropTypes.string.isRequired,
+      quantity: React.PropTypes.number.isRequired,
+      cbSelected: React.PropTypes.func.isRequired,
+      cbDeleted: React.PropTypes.func.isRequired,
+      productSelected: React.PropTypes.number.isRequired
+    };
    
+  productClicked = () => {
+      this.props.cbSelected(this.props.code);   
   }
-});
+
+  deleteClicked = () => {
+      this.props.cbDeleted(this.props.code);   
+  }
+
+  render() {
+    
+    return (
+      <tr className={this.props.slectedProductId == this.props.code? "selected" : ""} onClick = {this.productClicked}>
+        <td>{this.props.name}</td>
+        <td>{this.props.price}</td>
+        <td>{this.props.url}</td>
+        <td>{this.props.quantity}</td>
+        <td>
+          <button className="Control" onClick={this.deleteClicked}>
+            Delete
+          </button>
+        </td>
+      </tr>
+
+    )
+  }
+}
+
+export default Product;
