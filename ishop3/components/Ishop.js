@@ -40,18 +40,24 @@ class Ishop extends React.Component {
       );
 
     return (
-      <table className="Product">
-        <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Url</th>
-            <th>Quantity</th>
-            <th>Control</th>
-          </tr>
-          {productsCode}
-        </tbody>
-      </table>
+      <div>
+        <table className="Product">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Url</th>
+              <th>Quantity</th>
+              <th colSpan="2">Control</th>
+            </tr>
+            {productsCode}
+          </tbody>
+        </table>
+
+        <p>
+          <button>New product</button>
+        </p>
+      </div>
     )
   }
 }

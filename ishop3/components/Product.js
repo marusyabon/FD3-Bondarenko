@@ -33,6 +33,11 @@ class Product extends React.Component {
         <td>{this.props.url}</td>
         <td>{this.props.quantity}</td>
         <td>
+          <button className="Control">
+            Edit
+          </button>
+        </td>
+        <td>
           <button className="Control" onClick={this.deleteClicked}>
             Delete
           </button>
