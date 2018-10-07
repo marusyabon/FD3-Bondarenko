@@ -6,14 +6,14 @@ import './Product.css';
 class Product extends React.Component {
 
   static propTypes = {
-      code:React.PropTypes.number.isRequired,
-      name: React.PropTypes.string.isRequired,
-      price: React.PropTypes.number.isRequired,
-      url: React.PropTypes.string.isRequired,
-      quantity: React.PropTypes.number.isRequired,
-      cbSelected: React.PropTypes.func.isRequired,
-      cbDeleted: React.PropTypes.func.isRequired,
-      productSelected: React.PropTypes.number.isRequired
+      code:PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      price: PropTypes.number.isRequired,
+      url: PropTypes.string.isRequired,
+      quantity: PropTypes.number.isRequired,
+      cbSelected: PropTypes.func.isRequired,
+      cbDeleted: PropTypes.func.isRequired,
+      productSelected: PropTypes.number
     };
    
   productClicked = () => {

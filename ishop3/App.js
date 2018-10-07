@@ -5,11 +5,11 @@ import ReactDOM from 'react-dom';
 
 import Ishop from './components/Ishop';
 
-let productsList=require('./products.json');
+let productsArr=require('./products.json');
 
 ReactDOM.render(
   <Ishop 
-    products={productsList}
+    products={productsArr}
   />
   , document.getElementById('root') 
 );
