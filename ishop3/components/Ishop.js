@@ -1,20 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import './Ishop.css';
 
 import Product from './Product';
+import ProductCard from './ProductCard';
+import ProductForm from './ProductForm';
 
 class Ishop extends React.Component {
   
   state= {
       slectedProductId: null,
-      productsList: this.props.products
+      productsList: this.props.products,
+      slectedProduct: null,
+      enableEdit:null
   }
 
   productSelected = (code) => {
-    console.log(this.state.slectedProductId + " " + code);
-    this.setState({slectedProductId:code})
+    this.setState({
+      slectedProductId:code,
+      slectedProduct:this.defineProduct(code),
+    });
   }
 
   deleteProduct = (code) =>  {
@@ -23,10 +28,20 @@ class Ishop extends React.Component {
     });
     this.setState({productsList: [...productsFiltered]})
   }
-  
+
+  defineProduct = (productId) => {
+    return this.state.productsList.find((item) => item.code == productId);
+  }
+
+  editProduct = (code) => {
+    this.setState({
+      enableEdit:true,
+    })
+  } 
+
   render() {
 
-    var productsCode = this.state.productsList.map( item => 
+    let productsCode = this.state.productsList.map( item => 
       <Product key={item.code}
         code={item.code}
         name={item.name}
@@ -35,10 +50,11 @@ class Ishop extends React.Component {
         quantity={item.quantity}
         cbSelected={this.productSelected}
         cbDeleted={this.deleteProduct}
+        cbEdited={this.editProduct}
         slectedProductId={this.state.slectedProductId}
         />
       );
-
+      
     return (
       <div>
         <table className="Product">
@@ -57,6 +73,17 @@ class Ishop extends React.Component {
         <p>
           <button>New product</button>
         </p>
+
+        { 
+          this.state.slectedProduct &&
+          <ProductCard product={this.state.slectedProduct} /> 
+        }
+
+        { 
+          this.state.enableEdit && 
+          <ProductForm />
+        }
+
       </div>
     )
   }

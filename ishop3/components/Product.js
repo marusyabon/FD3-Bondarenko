@@ -13,6 +13,7 @@ class Product extends React.Component {
       quantity: PropTypes.number.isRequired,
       cbSelected: PropTypes.func.isRequired,
       cbDeleted: PropTypes.func.isRequired,
+      cbEdited: PropTypes.func.isRequired,
       productSelected: PropTypes.number
     };
    
@@ -24,6 +25,10 @@ class Product extends React.Component {
       this.props.cbDeleted(this.props.code);   
   }
 
+  editClicked = () => {
+    this.props.cbEdited(this.props.code); 
+  }
+
   render() {
     
     return (
@@ -33,7 +38,7 @@ class Product extends React.Component {
         <td>{this.props.url}</td>
         <td>{this.props.quantity}</td>
         <td>
-          <button className="Control">
+          <button className="Control" onClick={this.editClicked}>
             Edit
           </button>
         </td>
