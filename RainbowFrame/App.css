@@ -1,0 +1,10 @@
+.Wrapper {
+    max-width: 360px;
+    text-align: center
+}
+
+.RainbowFrame {
+    border-width: 2px;
+    border-style: solid;
+    padding: 10px;
+}
