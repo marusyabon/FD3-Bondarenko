@@ -13,10 +13,7 @@ class ProductCard extends React.Component {
   };
 
   render() {
-    let product = this.props.product,
-        name = product.name,
-        quantity = product.quantity,
-        price = product.price;
+    let {name, quantity, price} = this.props.product;
         
     return (
       <div className="productCard">

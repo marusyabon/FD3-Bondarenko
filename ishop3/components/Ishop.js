@@ -9,17 +9,17 @@ import ProductForm from './ProductForm';
 class Ishop extends React.Component {
   
   state= {
-      slectedProductId: null,
       productsList: this.props.products,
+      slectedProductId: null,
       slectedProduct: null,
-      enableEdit:null
-  }
+      editedProduct: null
+    }
 
   productSelected = (code) => {
     this.setState({
       slectedProductId:code,
-      slectedProduct:this.defineProduct(code),
-    });
+      slectedProduct:this.defineProduct(code)
+    }, ()=> {console.log("select")});
   }
 
   deleteProduct = (code) =>  {
@@ -29,15 +29,15 @@ class Ishop extends React.Component {
     this.setState({productsList: [...productsFiltered]})
   }
 
+  editProduct = (code) => {
+    this.setState({
+      editedProduct: this.defineProduct(code)
+    }, ()=> {console.log("edit")})
+  }
+
   defineProduct = (productId) => {
     return this.state.productsList.find((item) => item.code == productId);
   }
-
-  editProduct = (code) => {
-    this.setState({
-      enableEdit:true,
-    })
-  } 
 
   render() {
 
@@ -80,8 +80,8 @@ class Ishop extends React.Component {
         }
 
         { 
-          this.state.enableEdit && 
-          <ProductForm />
+          this.state.editedProduct && 
+          <ProductForm product={this.state.editedProduct} />
         }
 
       </div>

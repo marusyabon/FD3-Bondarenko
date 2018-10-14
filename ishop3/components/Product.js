@@ -14,7 +14,7 @@ class Product extends React.Component {
       cbSelected: PropTypes.func.isRequired,
       cbDeleted: PropTypes.func.isRequired,
       cbEdited: PropTypes.func.isRequired,
-      productSelected: PropTypes.number
+      // productSelected: PropTypes.number,
     };
    
   productClicked = () => {
@@ -26,7 +26,7 @@ class Product extends React.Component {
   }
 
   editClicked = () => {
-    this.props.cbEdited(this.props.code); 
+      this.props.cbEdited(this.props.code); 
   }
 
   render() {
