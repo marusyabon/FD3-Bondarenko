@@ -14,20 +14,15 @@ class ProductForm extends React.Component {
   }
 
   state = {
-    name: this.props.name,
-    quantity: this.props.quantity,
-    price: this.props.price,
-    url: this.props.url,
+    product: this.props.product
   }
 
   changeValue = (EO) => {
-    let val = EO.target.value;
-    let property = EO.target.name;
-    this.setState({property: val});
+    this.props.cbChangeValue(EO.target.name), EO.target.value;    
   }
 
   saveNewValue = () => {
-
+    
   }
 
   render() {    
@@ -35,22 +30,22 @@ class ProductForm extends React.Component {
 
     return (
 
-      <form>
+      <form key={Math.random()}>
         <div>
           <label>Name:</label>
-          <input name="name" type="text" value={name} onChange={this.changeValue}></input>
+          <input name="name" type="text" defaultValue={name} onChange={this.changeValue}></input>
         </div>
         <div>
           <label>Price:</label>
-          <input name="price" type="text" value={price} onChange={this.changeValue}></input>
+          <input name="price" type="text" defaultValue={price} onChange={this.changeValue}></input>
         </div>
         <div>
           <label>Quantity:</label>
-          <input name="quantity" type="text" value={quantity} onChange={this.changeValue}></input>
+          <input name="quantity" type="text" defaultValue={quantity} onChange={this.changeValue}></input>
         </div>
         <div>
           <label>Url:</label>
-          <input name="url" type="text" value={url} onChange={this.changeValue}></input>
+          <input name="url" type="text" defaultValue={url} onChange={this.changeValue}></input>
         </div>
         <input type="submit" value="SAVE" onClick={this.saveNewValue} />
       </form>

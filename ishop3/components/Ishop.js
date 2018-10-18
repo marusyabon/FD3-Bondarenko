@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './Ishop.css';
 
@@ -17,6 +18,7 @@ class Ishop extends React.Component {
 
   productSelected = (code) => {
     this.setState({
+      editedProduct: null,
       slectedProductId:code,
       slectedProduct:this.defineProduct(code)
     }, ()=> {console.log("select")});
@@ -31,12 +33,36 @@ class Ishop extends React.Component {
 
   editProduct = (code) => {
     this.setState({
+      slectedProduct: null,
       editedProduct: this.defineProduct(code)
-    }, ()=> {console.log("edit")})
+    })
   }
 
   defineProduct = (productId) => {
     return this.state.productsList.find((item) => item.code == productId);
+  }
+
+  setNewValue = (key, value) => {
+    
+    let changedProductsList = [...this.state.productsList];
+    let newProduct = {...this.state.product};
+    newProduct[key] = value;
+
+    changedProductsList.foreach((item, i) => {
+      if (item == this.state.editedProduct) {
+        item[i] = newProduct;
+      }
+    })
+
+    this.setState({
+      productsList: changedProductsList;
+    });
+  }
+
+  saveValue = (EO) => {
+    EO.preventDefault();
+   
+    this.setState({productsList: changedProductsList});
   }
 
   render() {
@@ -81,7 +107,11 @@ class Ishop extends React.Component {
 
         { 
           this.state.editedProduct && 
-          <ProductForm product={this.state.editedProduct} />
+          <ProductForm 
+            product={this.state.editedProduct}
+            cbChangeValue={this.setNewValue}
+            cbSaveValue={this.saveValue}
+             />
         }
 
       </div>

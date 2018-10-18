@@ -14,9 +14,10 @@ class Product extends React.Component {
       cbSelected: PropTypes.func.isRequired,
       cbDeleted: PropTypes.func.isRequired,
       cbEdited: PropTypes.func.isRequired,
+      cbChangeValue: PropTypes.func
       // productSelected: PropTypes.number,
     };
-   
+
   productClicked = () => {
       this.props.cbSelected(this.props.code);   
   }
@@ -25,8 +26,13 @@ class Product extends React.Component {
       this.props.cbDeleted(this.props.code);   
   }
 
-  editClicked = () => {
-      this.props.cbEdited(this.props.code); 
+  editClicked = (EO) => {
+    EO.stopPropagation();
+    this.props.cbEdited(this.props.code); 
+  }
+
+  setNewValue = (property, value) => {
+    console.log(property, value)
   }
 
   render() {
