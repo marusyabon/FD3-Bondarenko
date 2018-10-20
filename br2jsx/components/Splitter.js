@@ -12,13 +12,14 @@ class Splitter extends React.Component {
   render() {
   
   let strArr = this.props.text.split(/<br\s?\/?>/);
-  let joinStr = strArr.map(v =>
-    <p>{v}</p>
-    )
+  let arr= [];
+  strArr.forEach(element => {
+    arr.push(element, <br />)
+  });
         
     return (
       <div>
-        {joinStr}
+        {arr}
       </div>
     )
   }
