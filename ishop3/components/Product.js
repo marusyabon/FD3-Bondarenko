@@ -8,31 +8,33 @@ class Product extends React.Component {
   static propTypes = {
       code:PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
+      price: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
       url: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
+      quantity: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
       cbSelected: PropTypes.func.isRequired,
       cbDeleted: PropTypes.func.isRequired,
       cbEdited: PropTypes.func.isRequired,
       cbChangeValue: PropTypes.func
-      // productSelected: PropTypes.number,
     };
 
   productClicked = () => {
-      this.props.cbSelected(this.props.code);   
+    this.props.cbSelected(this.props.code);   
   }
 
-  deleteClicked = () => {
-      this.props.cbDeleted(this.props.code);   
+  deleteClicked = (EO) => {
+    EO.stopPropagation();
+    this.props.cbDeleted(this.props.code);   
   }
 
   editClicked = (EO) => {
     EO.stopPropagation();
     this.props.cbEdited(this.props.code); 
-  }
-
-  setNewValue = (property, value) => {
-    console.log(property, value)
   }
 
   render() {

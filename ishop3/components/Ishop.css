@@ -5,3 +5,11 @@ body {
 table {
     border-collapse: collapse;
 }
+
+.inputMessage {
+    display: none
+}
+
+.error .inputMessage {
+    display: block
+}

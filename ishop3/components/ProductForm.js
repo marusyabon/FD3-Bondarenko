@@ -5,24 +5,55 @@ class ProductForm extends React.Component {
 
   static propTypes = {
     product: PropTypes.shape({
-      code:PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      quantity: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      url: PropTypes.string.isRequired
-    })
+      code:PropTypes.number,
+      name: PropTypes.string,
+      quantity: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
+      price: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
+      url: PropTypes.string,
+    }),
+    cbSetValue: PropTypes.func.isRequired,
+    cbCancelEdit: PropTypes.func.isRequired,
+    newProductId: PropTypes.number
   }
 
   state = {
-    product: this.props.product
+    product: this.props.product ? this.props.product : null,
+    isValid: false
   }
 
-  changeValue = (EO) => {
-    this.props.cbChangeValue(EO.target.name), EO.target.value;    
+  changeValue = (EO) => { 
+    let newProduct = {...this.state.product};
+    let key = EO.target.name;
+    let val = EO.target.value;
+
+    newProduct[key] = val;
+
+    this.setState({
+      product: newProduct
+    })
   }
 
-  saveNewValue = () => {
-    
+  saveNewValue = (EO) => {
+    EO.preventDefault();
+
+    let {name, quantity, price, url} = this.state.product;
+
+    if(name && url && !isNaN(+quantity) && !isNaN(+price)) {
+      this.setState({
+        isValid: true
+      })
+      this.props.cbSetValue(this.state.product);
+    }
+  }
+  
+  cancelEdit = () => {
+    this.props.cbCancelEdit();
   }
 
   render() {    
@@ -30,24 +61,30 @@ class ProductForm extends React.Component {
 
     return (
 
-      <form key={Math.random()}>
+      <form className={this.state.isValid ? "" : "error"}>
         <div>
           <label>Name:</label>
           <input name="name" type="text" defaultValue={name} onChange={this.changeValue}></input>
+          <span className="inputMessage">The name must have at least one letter</span>
         </div>
         <div>
           <label>Price:</label>
           <input name="price" type="text" defaultValue={price} onChange={this.changeValue}></input>
+          <span className="inputMessage">It must be number</span>
         </div>
         <div>
           <label>Quantity:</label>
           <input name="quantity" type="text" defaultValue={quantity} onChange={this.changeValue}></input>
+          <span className="inputMessage">It must be number</span>
         </div>
         <div>
           <label>Url:</label>
           <input name="url" type="text" defaultValue={url} onChange={this.changeValue}></input>
+          <span className="inputMessage">Url must have at least one letter</span>
         </div>
-        <input type="submit" value="SAVE" onClick={this.saveNewValue} />
+ 
+        <input type="button" value="SAVE" onClick={this.saveNewValue} />
+        <input type="button" value="CANCEL" onClick={this.cancelEdit} />
       </form>
     )
   }

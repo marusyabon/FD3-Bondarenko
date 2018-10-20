@@ -13,7 +13,8 @@ class Ishop extends React.Component {
       productsList: this.props.products,
       slectedProductId: null,
       slectedProduct: null,
-      editedProduct: null
+      editedProduct: null,
+      newProduct: null
     }
 
   productSelected = (code) => {
@@ -21,7 +22,7 @@ class Ishop extends React.Component {
       editedProduct: null,
       slectedProductId:code,
       slectedProduct:this.defineProduct(code)
-    }, ()=> {console.log("select")});
+    });
   }
 
   deleteProduct = (code) =>  {
@@ -34,6 +35,7 @@ class Ishop extends React.Component {
   editProduct = (code) => {
     this.setState({
       slectedProduct: null,
+      newProduct: null,
       editedProduct: this.defineProduct(code)
     })
   }
@@ -42,27 +44,48 @@ class Ishop extends React.Component {
     return this.state.productsList.find((item) => item.code == productId);
   }
 
-  setNewValue = (key, value) => {
+  saveValue = (newProduct) => { 
+
+    if (this.state.editedProduct) {
+      let changedProductsList = [...this.state.productsList];
+      changedProductsList.forEach((item, i) => {
+        item.code == newProduct.code && (changedProductsList[i] = newProduct)
+      });
+
+      this.setState({
+        productsList: changedProductsList,
+        editedProduct: null
+      });
+    }
+    if (this.state.newProduct) {
+      let changedProductsList = [...this.state.productsList, newProduct];
+      this.setState({
+        productsList: changedProductsList,
+        editedProduct: null
+      });
+    }
     
-    let changedProductsList = [...this.state.productsList];
-    let newProduct = {...this.state.product};
-    newProduct[key] = value;
-
-    changedProductsList.foreach((item, i) => {
-      if (item == this.state.editedProduct) {
-        item[i] = newProduct;
-      }
-    })
-
-    this.setState({
-      productsList: changedProductsList;
-    });
   }
 
-  saveValue = (EO) => {
-    EO.preventDefault();
-   
-    this.setState({productsList: changedProductsList});
+  cancelEdit = () => {
+    this.setState({
+      editedProduct: null
+    })
+  }
+
+  addNewProduct = () => {
+    let newProduct = {
+      code: this.state.productsList.length +1,
+      name:"",
+      price:0,
+      quantity:0,
+      url:""
+    };
+    this.setState({
+      newProduct: newProduct,
+      editedProduct: null,
+      slectedProduct: null
+    })
   }
 
   render() {
@@ -97,7 +120,7 @@ class Ishop extends React.Component {
         </table>
 
         <p>
-          <button>New product</button>
+          <button onClick={this.addNewProduct}>New product</button>
         </p>
 
         { 
@@ -109,8 +132,17 @@ class Ishop extends React.Component {
           this.state.editedProduct && 
           <ProductForm 
             product={this.state.editedProduct}
-            cbChangeValue={this.setNewValue}
-            cbSaveValue={this.saveValue}
+            cbSetValue={this.saveValue}
+            cbCancelEdit={this.cancelEdit}
+             />
+        }
+
+        { 
+          this.state.newProduct && 
+          <ProductForm 
+            product={this.state.newProduct}
+            cbSetValue={this.saveValue}
+            cbCancelEdit={this.cancelEdit}
              />
         }
 
