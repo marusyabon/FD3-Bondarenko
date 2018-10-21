@@ -10,12 +10,12 @@ import ProductForm from './ProductForm';
 class Ishop extends React.Component {
   
   state= {
-      productsList: this.props.products,
-      slectedProductId: null,
-      slectedProduct: null,
-      editedProduct: null,
-      newProduct: null
-    }
+    productsList: this.props.products,
+    slectedProductId: null,
+    slectedProduct: null,
+    editedProduct: null,
+    newProduct: null
+  }
 
   productSelected = (code) => {
     this.setState({
@@ -40,8 +40,8 @@ class Ishop extends React.Component {
     })
   }
 
-  defineProduct = (productId) => {
-    return this.state.productsList.find((item) => item.code == productId);
+  defineProduct = (code) => {
+    return this.state.productsList.find((item) => item.code == code);
   }
 
   saveValue = (newProduct) => { 
@@ -63,19 +63,24 @@ class Ishop extends React.Component {
         productsList: changedProductsList,
         editedProduct: null
       });
-    }
-    
+    }    
   }
 
   cancelEdit = () => {
     this.setState({
-      editedProduct: null
+      editedProduct: null,
+      newProduct: null
     })
+  }
+
+  defineNewId = () => {
+    let maxIdProd = this.state.productsList.reduce((isMax, item) => (isMax > item ? isMax : item) );
+    return maxIdProd.code+1
   }
 
   addNewProduct = () => {
     let newProduct = {
-      code: this.state.productsList.length +1,
+      code: this.defineNewId(),
       name:"",
       price:0,
       quantity:0,
@@ -131,6 +136,7 @@ class Ishop extends React.Component {
         { 
           this.state.editedProduct && 
           <ProductForm 
+            isValid
             product={this.state.editedProduct}
             cbSetValue={this.saveValue}
             cbCancelEdit={this.cancelEdit}

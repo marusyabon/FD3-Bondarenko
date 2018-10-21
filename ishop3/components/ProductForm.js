@@ -23,11 +23,12 @@ class ProductForm extends React.Component {
   }
 
   state = {
-    product: this.props.product ? this.props.product : null,
-    isValid: false
+    product: this.props.product,
+    isValid: this.props.isValid
   }
 
   changeValue = (EO) => { 
+
     let newProduct = {...this.state.product};
     let key = EO.target.name;
     let val = EO.target.value;
@@ -36,18 +37,28 @@ class ProductForm extends React.Component {
 
     this.setState({
       product: newProduct
-    })
+    }, this.isValidSetter)
+  }
+
+  isValidSetter = () => {
+    let {name, quantity, price, url} = this.state.product;
+
+    if (!name || !url || !quantity || !price || isNaN(+quantity) || isNaN(+price) ){
+      this.setState({
+        isValid: false
+      })
+    }
+    else {
+      this.setState({
+        isValid: true
+      })  
+    }
   }
 
   saveNewValue = (EO) => {
     EO.preventDefault();
 
-    let {name, quantity, price, url} = this.state.product;
-
-    if(name && url && !isNaN(+quantity) && !isNaN(+price)) {
-      this.setState({
-        isValid: true
-      })
+    if(this.state.isValid) {
       this.props.cbSetValue(this.state.product);
     }
   }
@@ -57,33 +68,36 @@ class ProductForm extends React.Component {
   }
 
   render() {    
-    let {name, quantity, price, url} = this.state.product;   
+    let {code, name, quantity, price, url} = this.state.product;   
 
     return (
 
-      <form className={this.state.isValid ? "" : "error"}>
+      <form key={code} className={this.state.isValid ? "" : "error"}>
         <div>
           <label>Name:</label>
-          <input name="name" type="text" defaultValue={name} onChange={this.changeValue}></input>
+          <input name="name" type="text" value={name} onChange={this.changeValue}></input>
           <span className="inputMessage">The name must have at least one letter</span>
         </div>
         <div>
           <label>Price:</label>
-          <input name="price" type="text" defaultValue={price} onChange={this.changeValue}></input>
+          <input name="price" type="text" value={price} onChange={this.changeValue}></input>
           <span className="inputMessage">It must be number</span>
         </div>
         <div>
           <label>Quantity:</label>
-          <input name="quantity" type="text" defaultValue={quantity} onChange={this.changeValue}></input>
+          <input name="quantity" type="text" value={quantity} onChange={this.changeValue}></input>
           <span className="inputMessage">It must be number</span>
         </div>
         <div>
           <label>Url:</label>
-          <input name="url" type="text" defaultValue={url} onChange={this.changeValue}></input>
+          <input name="url" type="text" value={url} onChange={this.changeValue}></input>
           <span className="inputMessage">Url must have at least one letter</span>
         </div>
- 
-        <input type="button" value="SAVE" onClick={this.saveNewValue} />
+
+        {this.state.isValid 
+        ? <input type="button" value="SAVE" onClick={this.saveNewValue} />
+        : <input type="button" value="SAVE" disabled />
+        }
         <input type="button" value="CANCEL" onClick={this.cancelEdit} />
       </form>
     )
