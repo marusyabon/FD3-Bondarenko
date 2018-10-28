@@ -21,7 +21,7 @@ class MobileCompany extends React.PureComponent {
   state = {
     clients: this.props.clients,
     filteredClients: this.props.clients,
-    currentClient: null,
+    currentClientId: null,
     workMode: 0
   };
 
@@ -57,21 +57,25 @@ class MobileCompany extends React.PureComponent {
   }
 
   editClient = (id) => {
-    this.setState({
-      workMode: 2
-    });
-
     let clientEdited = this.state.clients.filter(c => {
       return c.id == id
     });
     this.currentClient = clientEdited[0];
+
+    this.setState({
+      workMode: 2,
+      currentClientId: id
+    });
+
+    console.log(this.state.currentClientId)
+
   }
 
   saveValue = (EO) => {
     EO.preventDefault();
 
     if(this.state.workMode == 1) {
-      let newFilteredClients = [...this.state.filteredClients, this.currentClient];
+      let newFilteredClients = [...this.state.clients, this.currentClient];
       
       this.setState({
         filteredClients: [...newFilteredClients],
@@ -81,7 +85,7 @@ class MobileCompany extends React.PureComponent {
     }
 
     if(this.state.workMode == 2) {
-      let newFilteredClients = [...this.state.filteredClients];
+      let newFilteredClients = [...this.state.clients];
       newFilteredClients.forEach((c, i) => {
         c.id == this.currentClient.id && (newFilteredClients[i] = this.currentClient)
       });
@@ -111,21 +115,36 @@ class MobileCompany extends React.PureComponent {
   }
 
   showActive = () => {
-    let newFilteredClients = this.state.clients.filter(c => {
-      return c.balance > 0;
-    });
-    this.setState({filteredClients: newFilteredClients})
+    if (this.state.filter != "showActive") {
+      let newFilteredClients = this.state.clients.filter(c => {
+        return c.balance > 0;
+      });
+      this.setState({
+        filteredClients: newFilteredClients,
+        filter: "showActive"
+      })
+    }
   }
 
   showBlocked = () => {
-    let newFilteredClients = this.state.clients.filter(c => {
-      return c.balance <= 0;
-    });
-    this.setState({filteredClients: newFilteredClients})
+    if (this.state.filter != "showBlocked") {
+      let newFilteredClients = this.state.clients.filter(c => {
+        return c.balance <= 0;
+      });
+      this.setState({
+        filteredClients: newFilteredClients,
+        filter: "showBlocked"
+      })
+    }
   }
 
   showAll = () => {
-    this.setState({filteredClients: [...this.state.clients]})
+    if (this.state.filter != "showAll") {
+      this.setState({
+        filteredClients: [...this.state.clients],
+        filter: "showAll"
+      })
+    }
   }
   
   render() {
@@ -133,12 +152,11 @@ class MobileCompany extends React.PureComponent {
     console.log("MobileCompany render");
 
     var clientsCode=this.state.filteredClients.map( client => {
-        let clientInfo={name:client.name,secondName:client.secondName,balance:client.balance};
-        return (
+
+      return (
         <MobileClient 
           key={client.id} 
-          id={client.id} 
-          clientInfo={clientInfo} 
+          clientInfo={client} 
           cbDeleted={this.deleteClient}
           cbEdited={this.editClient}
         />);

@@ -6,8 +6,8 @@ import './MobileClient.css';
 class MobileClient extends React.PureComponent {
 
   static propTypes = {
-    id: PropTypes.number.isRequired,
     clientInfo: PropTypes.shape({
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       secondName: PropTypes.string.isRequired,
       balance: PropTypes.number.isRequired
@@ -15,6 +15,7 @@ class MobileClient extends React.PureComponent {
   };
 
   state = {
+    id:this.props.clientInfo.id,
     name:this.props.clientInfo.name,
     secondName:this.props.clientInfo.secondName,
     balance:this.props.clientInfo.balance,
@@ -22,12 +23,12 @@ class MobileClient extends React.PureComponent {
   
   editClient = (EO) => {
     EO.stopPropagation();
-    this.props.cbEdited(this.props.id);   
+    this.props.cbEdited(this.props.clientInfo.id);   
   }
   
   deleteClient = (EO) => {
     EO.stopPropagation();
-    this.props.cbDeleted(this.props.id);   
+    this.props.cbDeleted(this.props.clientInfo.id);   
   }
 
   componentWillReceiveProps = (newProps) => {
@@ -45,10 +46,10 @@ class MobileClient extends React.PureComponent {
 
   render() {
 
-    console.log("MobileClient id="+this.props.id+" render");
+    console.log("MobileClient id="+this.props.clientInfo.id+" render");
     
     return (
-      <div className='MobileClient'>
+      <div className='MobileClient' id={this.state.id}>
         <span className='MobileClientName'>{this.state.name+" "+this.state.secondName}</span>
         <span className='MobileClientBalance'>{this.state.balance}</span>
         <span className="MobileClientBtn">
