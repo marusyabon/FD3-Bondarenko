@@ -1,0 +1,40 @@
+﻿.MobileCompany
+{
+  border: double gray 3px;
+  width: 330px;
+  padding: 3px 7px;
+  background-color: lightyellow;
+}
+
+.MobileCompanyName
+{
+  font-weight: bold;
+}
+
+.MobileCompanyClients
+{
+  padding-top: 5px;
+}
+
+.Buttons {
+  padding: 10px 0;
+}
+
+.Buttons input {
+  width: 105px;
+  padding: 3px 0;
+  text-align: center;
+}
+
+.Buttons input:not(:first-child) {
+  margin-left: 5px;
+}
+
+.EditClient {
+  margin: 20px 0;
+}
+
+.EditClient input {
+  margin-top: 5px;
+  margin-right: 5px;
+}

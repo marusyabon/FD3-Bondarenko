@@ -1,0 +1,24 @@
+﻿div.MobileClient
+{
+  padding: 2px 0;
+}
+
+.MobileClient span {
+  display: inline-block;
+}
+
+span.MobileClientBalance
+{
+  font-weight: bold;
+  width: 50px;
+}
+
+.MobileClientName
+{
+  width: 140px;
+  margin-right: 20px;
+}
+
+.MobileClientBtn {
+  padding: 0 5px;
+}
