@@ -11,7 +11,7 @@ class Scales {
         let sum:number = 0;
 
         this.productsArr.forEach(item =>
-            sum+=item.weight
+            sum+=item.getWeight()
             );
 
         let sumWeight:number = sum;
@@ -22,7 +22,7 @@ class Scales {
 
     getNameList ():Array<string> {
         let names:Array<string> = this.productsArr.map(item =>
-            item.name
+            item.getName()
             );
         console.log(names);
         return names;
@@ -31,8 +31,8 @@ class Scales {
 }
 
 class Product {
-    name:string;
-    weight:number;
+    private name:string;
+    private weight:number;
 
     constructor(_name:string, _weight:number) {
         this.name = _name;

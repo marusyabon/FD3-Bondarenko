@@ -21,7 +21,7 @@ var Scales = /** @class */ (function () {
     Scales.prototype.getSumScale = function () {
         var sum = 0;
         this.productsArr.forEach(function (item) {
-            return sum += item.weight;
+            return sum += item.getWeight();
         });
         var sumWeight = sum;
         console.log(sumWeight);
@@ -30,7 +30,7 @@ var Scales = /** @class */ (function () {
     ;
     Scales.prototype.getNameList = function () {
         var names = this.productsArr.map(function (item) {
-            return item.name;
+            return item.getName();
         });
         console.log(names);
         return names;
