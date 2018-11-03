@@ -49,21 +49,11 @@ class Product {
 }
 
 class Apple extends Product {
-    type:string;
 
-    constructor(name: string, weight: number) {
-        super(name, weight); 
-        this.type = 'fruit';
-    }
 }
 
 class Tomato extends Product {
-    type:string;
 
-    constructor(name: string, weight: number) {
-        super(name, weight); 
-        this.type = 'vegetable';
-    }
 }
 
 let scales:Scales=new Scales;
