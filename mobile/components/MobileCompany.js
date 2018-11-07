@@ -72,7 +72,7 @@ class MobileCompany extends React.PureComponent {
   }
 
   saveValue = (EO) => {
-    EO.preventDefault();
+    EO && EO.preventDefault();
 
     if(this.state.workMode == 1) {
       let newFilteredClients = [...this.state.clients, this.currentClient];
