@@ -38,7 +38,7 @@ class Scales<StorageEngine extends IStorageEngine> {
         let sumWeight:number = 0;
 
         for (let i:number = 0; i < this.storage.getCount(); i++) {
-            sumWeight+=this.storage.getItem(i).getWeight();
+            sumWeight+=this.storage.getItem(i).weight;
         };
 
         console.log(sumWeight);
@@ -49,7 +49,7 @@ class Scales<StorageEngine extends IStorageEngine> {
         let names:Array<string> = [];
 
         for (let i:number = 0; i < this.storage.getCount(); i++) {
-            names.push(this.storage.getItem(i).getName());
+            names.push(this.storage.getItem(i).name);
         };
         
         console.log(names);
@@ -75,25 +75,21 @@ class ScalesStorageEngineArray  implements IStorageEngine {
 
 class ScalesStorageEngineLocalStorage implements IStorageEngine {
 
-    items:Array<Product> = []
+    items:Array<Product> = [];
+    storage = localStorage;
 
-    createArray():void {
-        localStorage.setItem('items', JSON.stringify(this.items))
+    addItem(item: Product):void {
+        this.items.push(item);
+        this.storage.setItem('Products', JSON.stringify(this.items));
     }
 
-    addItem(item):void {
-        let items = JSON.parse(localStorage.getItem("items"));
-        items.push(item);
-        localStorage.setItem('items', JSON.stringify(items))
-    }
-
-    getItem(index):Product {
-        let items = JSON.parse(localStorage.getItem("items"));
+    getItem(index: number):Product {
+        let items: Array<Product> = JSON.parse(this.storage.getItem('Products'));
         return items[index];
     }
 
     getCount():number {
-        let items = JSON.parse(localStorage.getItem("items"));
+        let items: Array<Product> = JSON.parse(this.storage.getItem('Products'));
         return items.length;
     }
 }

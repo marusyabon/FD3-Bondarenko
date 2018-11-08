@@ -21,7 +21,7 @@ var Scales = /** @class */ (function () {
     Scales.prototype.getSumScale = function () {
         var sumWeight = 0;
         for (var i = 0; i < this.storage.getCount(); i++) {
-            sumWeight += this.storage.getItem(i).getWeight();
+            sumWeight += this.storage.getItem(i).weight;
         }
         ;
         console.log(sumWeight);
@@ -31,7 +31,7 @@ var Scales = /** @class */ (function () {
     Scales.prototype.getNameList = function () {
         var names = [];
         for (var i = 0; i < this.storage.getCount(); i++) {
-            names.push(this.storage.getItem(i).getName());
+            names.push(this.storage.getItem(i).name);
         }
         ;
         console.log(names);
@@ -57,21 +57,18 @@ var ScalesStorageEngineArray = /** @class */ (function () {
 var ScalesStorageEngineLocalStorage = /** @class */ (function () {
     function ScalesStorageEngineLocalStorage() {
         this.items = [];
+        this.storage = localStorage;
     }
-    ScalesStorageEngineLocalStorage.prototype.createArray = function () {
-        localStorage.setItem('items', JSON.stringify(this.items));
-    };
     ScalesStorageEngineLocalStorage.prototype.addItem = function (item) {
-        var items = JSON.parse(localStorage.getItem("items"));
-        items.push(item);
-        localStorage.setItem('items', JSON.stringify(items));
+        this.items.push(item);
+        this.storage.setItem('Products', JSON.stringify(this.items));
     };
     ScalesStorageEngineLocalStorage.prototype.getItem = function (index) {
-        var items = JSON.parse(localStorage.getItem("items"));
+        var items = JSON.parse(this.storage.getItem('Products'));
         return items[index];
     };
     ScalesStorageEngineLocalStorage.prototype.getCount = function () {
-        var items = JSON.parse(localStorage.getItem("items"));
+        var items = JSON.parse(this.storage.getItem('Products'));
         return items.length;
     };
     return ScalesStorageEngineLocalStorage;
