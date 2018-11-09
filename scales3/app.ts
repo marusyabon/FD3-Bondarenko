@@ -1,6 +1,6 @@
 interface IStorageEngine  {
     addItem(item:Product):void; 
-    getItem(index); 
+    getItem(index:number):Product; 
     getCount():number
 }
 
@@ -38,7 +38,7 @@ class Scales<StorageEngine extends IStorageEngine> {
         let sumWeight:number = 0;
 
         for (let i:number = 0; i < this.storage.getCount(); i++) {
-            sumWeight+=this.storage.getItem(i).weight;
+            sumWeight+=this.storage.getItem(i).getWeight();
         };
 
         console.log(sumWeight);
@@ -49,7 +49,7 @@ class Scales<StorageEngine extends IStorageEngine> {
         let names:Array<string> = [];
 
         for (let i:number = 0; i < this.storage.getCount(); i++) {
-            names.push(this.storage.getItem(i).name);
+            names.push(this.storage.getItem(i).getName());
         };
         
         console.log(names);
@@ -84,8 +84,9 @@ class ScalesStorageEngineLocalStorage implements IStorageEngine {
     }
 
     getItem(index: number):Product {
-        let items: Array<Product> = JSON.parse(this.storage.getItem('Products'));
-        return items[index];
+        let items = JSON.parse(this.storage.getItem('Products')); 
+        let item = items[index]; 
+        return new Product(item.name, item.weight);
     }
 
     getCount():number {
